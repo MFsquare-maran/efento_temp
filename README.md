@@ -17,3 +17,12 @@ sudo apt install wireguard
 sudo nano /etc/wireguard/wg0.conf
 ```
 2.1 Paste config
+
+## 3. Enable Wireguard
+```bash
+sudo systemctl enable wg-quick@wg0 
+```
+
+```bash
+sudo systemctl start wg-quick@wg0 
+```
