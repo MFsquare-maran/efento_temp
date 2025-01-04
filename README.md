@@ -32,3 +32,5 @@ sudo apt install resolvconf
 ```bash
 sudo systemctl restart resolvconf
 ```
+## 3. git clone
+
