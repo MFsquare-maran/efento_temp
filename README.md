@@ -1,4 +1,4 @@
-# efento_temp Config
+## efento_temp Config
 
 1. Install Git
 ```bash
@@ -16,3 +16,4 @@ sudo apt install wireguard
 ```bash
 sudo nano /etc/wireguard/wg0.conf
 ```
+2.1 Paste config
