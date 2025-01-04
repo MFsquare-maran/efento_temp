@@ -41,8 +41,15 @@ git clone https://github.com/MFsquare-maran/efento_temp.git
 ```bash
 cd efento_temp/
 ```
+## 4. adapt config.ini
 
-## 3. install evento libary  & start
+```bash
+sudo nano config.ini
+```
+Adapt MAC-Adress & Token
+
+
+## 4. install evento libary  & start
 
 ```bash
 chmod +x setup_env.sh
