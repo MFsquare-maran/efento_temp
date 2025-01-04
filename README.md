@@ -34,3 +34,6 @@ sudo systemctl restart resolvconf
 ```
 ## 3. git clone
 
+```bash
+git clone https://github.com/MFsquare-maran/efento_temp.git
+```
