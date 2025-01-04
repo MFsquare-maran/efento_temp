@@ -10,9 +10,12 @@ class HostInfo:
         # IP Address from eth0
         ip_address = "Unknown"
         try:
-            ifaddrs = netifaces.ifaddresses('eth0')
-            if netifaces.AF_INET in ifaddrs:
-                ip_address = ifaddrs[netifaces.AF_INET][0]['addr']
+            ifaddrs1 = netifaces.ifaddresses('eth0')
+            ifaddrs2 = netifaces.ifaddresses('wlan0')
+            if netifaces.AF_INET in ifaddrs1:
+                ip_address = ifaddrs1[netifaces.AF_INET][0]['addr']
+            if netifaces.AF_INET in ifaddrs2:
+                ip_address = ifaddrs2[netifaces.AF_INET][0]['addr']
         except Exception:
             pass
 
