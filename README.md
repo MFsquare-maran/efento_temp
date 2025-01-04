@@ -37,3 +37,17 @@ sudo systemctl restart resolvconf
 ```bash
 git clone https://github.com/MFsquare-maran/efento_temp.git
 ```
+
+```bash
+cd efento_temp/
+```
+
+## 3. install evento libary  & start
+
+```bash
+chmod +x setup_env.sh
+```
+```bash
+./setup_env.sh
+```
+
