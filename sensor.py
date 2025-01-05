@@ -79,7 +79,7 @@ class Sensor:
         try:
             scanner = BleakScanner(detection_callback, scanning_mode="active")
             await scanner.start()
-            await asyncio.sleep(15.0)
+            await asyncio.sleep(30.0)
             await scanner.stop()
             print("-----------------------------------------")
             print(data_collected['scan_response'].hex())
