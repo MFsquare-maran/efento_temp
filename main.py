@@ -18,12 +18,17 @@ async def get_sensor_data(config):
     # Publish attributes
     host_info = HostInfo.get_info()
     tb_client.publish("v1/devices/me/attributes", host_info)
+    
+    Sensor_attributes = {"Sensor Firmware": sensor.fwversion}
+    
+    tb_client.publish("v1/devices/me/attributes", Sensor_attributes)
 
     # Publish telemetry data
     if sensor.temperature is not None:
         telemetry_data = {
             "temperature": sensor.temperature,
-            "rssi": sensor.rssi
+            "rssi": sensor.rssi,
+            "battery": sensor.battery
         }
         tb_client.publish("v1/devices/me/telemetry", telemetry_data)
 
