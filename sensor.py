@@ -9,7 +9,38 @@ class Sensor:
         self.unit = None
         self.rssi = None
         self.name = None
+        self.fwversion = None
+        self.battery = None
 
+
+    def parse_advertisement_frame(self,data):
+      try:
+
+         
+        
+          idx = 7  # Skip Manufacturing Data Version
+        
+          # Firmware Version
+          firmware_version_bytes = data[idx:idx+2]
+          idx += 2
+          firmware_version_int = int.from_bytes(firmware_version_bytes, byteorder='big')
+        
+          lts_version = firmware_version_int & 0x1F
+          minor_version = (firmware_version_int >> 5) & 0x3F
+          major_version = (firmware_version_int >> 11) & 0x1F
+          self.fwversion = f"{major_version}.{minor_version}.{lts_version}"
+    
+          # Battery Level
+          idx = 9
+          status_byte = data[idx]
+          battery_level_bit = status_byte & 0x01
+          self.battery = "OK" if battery_level_bit else "Low"
+
+ 
+      except Exception as e:
+          print(f"Error in parse_advertisement_frame: {e}")
+  
+    
     def _parse_scan_response_frame(self, data):
         try:
             idx = 1  # Skip Manufacturing Data Version
@@ -29,6 +60,7 @@ class Sensor:
 
     async def get_data(self):
         data_collected = {'scan_response': None}
+        data_collected2 = {'scan_response2': None}
 
         def detection_callback(device, advertisement_data):
             try:
@@ -39,6 +71,8 @@ class Sensor:
                     for key, value in manufacturer_data.items():
                         if key == 620 and len(value) >= 1 and value[0] == 0x04:
                             data_collected['scan_response'] = value
+                        if key == 620 and len(value) >= 11 and value[0] == 0x03:
+                            data_collected2['scan_response2'] = value
             except Exception as e:
                 print(f"Error in detection_callback: {e}")
 
@@ -47,8 +81,14 @@ class Sensor:
             await scanner.start()
             await asyncio.sleep(15.0)
             await scanner.stop()
+            print("-----------------------------------------")
+            print(data_collected['scan_response'].hex())
+            print(data_collected2['scan_response2'].hex())
+            print("-----------------------------------------")
 
             if data_collected['scan_response']:
                 self._parse_scan_response_frame(data_collected['scan_response'])
+            if data_collected2['scan_response2']:
+                self.parse_advertisement_frame(data_collected2['scan_response2'])
         except Exception as e:
             print(f"Error during Bluetooth scan: {e}")
