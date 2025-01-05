@@ -76,19 +76,31 @@ class Sensor:
             except Exception as e:
                 print(f"Error in detection_callback: {e}")
 
-        try:
+        max_attempts = 4
+        attempt = 0
+
+        while attempt < max_attempts:
+          try:
             scanner = BleakScanner(detection_callback, scanning_mode="active")
             await scanner.start()
-            await asyncio.sleep(60.0)
+            await asyncio.sleep(15.0)
             await scanner.stop()
             print("-----------------------------------------")
-            print(data_collected['scan_response'].hex())
-            print(data_collected2['scan_response2'].hex())
+            print(data_collected.get('scan_response', b'').hex())
+            print(data_collected2.get('scan_response2', b'').hex())
             print("-----------------------------------------")
 
-            if data_collected['scan_response']:
-                self._parse_scan_response_frame(data_collected['scan_response'])
-            if data_collected2['scan_response2']:
-                self.parse_advertisement_frame(data_collected2['scan_response2'])
-        except Exception as e:
-            print(f"Error during Bluetooth scan: {e}")
+            if data_collected.get('scan_response') and data_collected2.get('scan_response2'):
+              self._parse_scan_response_frame(data_collected['scan_response'])
+              self.parse_advertisement_frame(data_collected2['scan_response2'])
+              break  # Scan erfolgreich, Schleife beenden
+
+            attempt += 1
+            if attempt < max_attempts:
+              print(f"Scan unvollständig. Versuche erneut ({attempt}/{max_attempts})...")
+            else:
+              print("Maximale Anzahl an Versuchen erreicht. Scan abgebrochen.")
+          except Exception as e:
+            print(f"Fehler während des Scans: {e}")
+            attempt += 1
+
