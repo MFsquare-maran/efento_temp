@@ -50,9 +50,7 @@ Adapt MAC-Adress & Token
 
 
 ## 4. install evento libary  & start
-```bash
-sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
-```
+
 ```bash
 chmod +x setup_env.sh
 ```
