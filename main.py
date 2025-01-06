@@ -19,7 +19,7 @@ async def get_sensor_data(config):
     host_info = HostInfo.get_info()
     tb_client.publish("v1/devices/me/attributes", host_info)
     
-    Sensor_attributes = {"Sensor Firmware": sensor.fwversion}
+    Sensor_attributes = {"Sensor Firmware": sensor.fwversion, "Sensor Macadresse": sensor.MACAdresse}
     
     tb_client.publish("v1/devices/me/attributes", Sensor_attributes)
 
