@@ -98,8 +98,9 @@ class Sensor:
             print(data_collected2.get('scan_response2', b'').hex())
             print("-----------------------------------------")
 
-            if data_collected.get('scan_response') and data_collected2.get('scan_response2'):
+            if data_collected.get('scan_response'):
               self._parse_scan_response_frame(data_collected['scan_response'])
+            if data_collected2.get('scan_response2'):
               self.parse_advertisement_frame(data_collected2['scan_response2'])
               break  # Scan erfolgreich, Schleife beenden
 
