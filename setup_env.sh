@@ -23,6 +23,6 @@ current_dir=$(pwd)
 
 # Schedule the script with cron for the current user
 echo "Adding main.py to user's cron (every 10 minutes)..."
-(crontab -l 2>/dev/null; echo "*/10 * * * * python3 $current_dir/main.py") | crontab -
+(crontab -l 2>/dev/null; echo "*/5 * * * * python3 $current_dir/main.py") | crontab -
 
 echo "Setup completed successfully! main.py will run every 10 minutes."
