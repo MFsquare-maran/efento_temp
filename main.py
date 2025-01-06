@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
             sensor = await get_sensor_data(config)
             if sensor.temperature is not None:
-                print(f"Sensor Name: {sensor.name}")
+                print(f"Sensor Name: {sensor.MACAdresse}")
                 print(f"RSSI: {sensor.rssi} dBm")
                 print(f"Temperature: {sensor.temperature} {sensor.unit}")
 
