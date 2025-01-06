@@ -11,13 +11,21 @@ class Sensor:
         self.name = None
         self.fwversion = None
         self.battery = None
+        self.MACAdresse = None
 
 
     def parse_advertisement_frame(self,data):
       try:
 
-         
-        
+          idx = 1   
+          
+
+          Macadresse_roh = data[idx:idx+6]
+          
+          self.MACAdresse = ':'.join(f'{byte:02X}' for byte in Macadresse_roh)
+
+          
+          
           idx = 7  # Skip Manufacturing Data Version
         
           # Firmware Version
