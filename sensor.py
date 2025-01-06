@@ -84,7 +84,7 @@ class Sensor:
             except Exception as e:
                 print(f"Error in detection_callback: {e}")
 
-        max_attempts = 4
+        max_attempts = 3
         attempt = 0
 
         while attempt < max_attempts:
